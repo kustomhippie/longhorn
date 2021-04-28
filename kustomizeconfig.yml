@@ -1,0 +1,17 @@
+---
+images:
+  - path: spec/template/metadata/annotations/longhorn-manager-image
+    kind: Deployment
+
+  - path: spec/template/metadata/annotations/longhorn-manager-image
+    kind: DaemonSet
+  - path: spec/template/metadata/annotations/longhorn-engine-image
+    kind: DaemonSet
+  - path: spec/template/metadata/annotations/longhorn-instancemanager-image
+    kind: DaemonSet
+  - path: spec/template/metadata/annotations/longhorn-sharemanager-image
+    kind: DaemonSet
+  - path: spec/template/metadata/annotations/longhorn-backingmanager-image
+    kind: DaemonSet
+
+...

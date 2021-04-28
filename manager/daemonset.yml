@@ -1,0 +1,120 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+
+metadata:
+  name: longhorn-manager
+
+spec:
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: "100%"
+
+  template:
+    metadata:
+      annotations:
+        longhorn-engine-image: longhorn-engine
+        longhorn-instancemanager-image: longhorn-instancemanager
+        longhorn-sharemanager-image: longhorn-sharemanager
+        longhorn-backingmanager-image: longhorn-backingmanager
+        longhorn-manager-image: longhorn-manager
+
+    spec:
+      serviceAccount: longhorn-manager
+
+      containers:
+        - name: server
+          image: longhorn-manager
+          imagePullPolicy: IfNotPresent
+
+          securityContext:
+            privileged: true
+
+          command:
+            - longhorn-manager
+            - daemon
+            - --engine-image
+            - $(ENGINE_IMAGE)
+            - --instance-manager-image
+            - $(INSTANCEMANAGER_IMAGE)
+            - --share-manager-image
+            - $(SHAREMANAGER_IMAGE)
+            - --backing-image-manager-image
+            - $(BACKINGMANAGER_IMAGE)
+            - --manager-image
+            - $(MANAGER_IMAGE)
+            - --service-account
+            - longhorn-manager
+
+          env:
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+
+            - name: ENGINE_IMAGE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['longhorn-engine-image']
+            - name: INSTANCEMANAGER_IMAGE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['longhorn-instancemanager-image']
+            - name: SHAREMANAGER_IMAGE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['longhorn-sharemanager-image']
+            - name: BACKINGMANAGER_IMAGE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['longhorn-backingmanager-image']
+            - name: MANAGER_IMAGE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['longhorn-manager-image']
+
+            - name: DEFAULT_SETTING_PATH
+              value: "/var/lib/settings/settings.yaml"
+
+          ports:
+            - name: http
+              containerPort: 9500
+
+          readinessProbe:
+            tcpSocket:
+              port: 9500
+
+          volumeMounts:
+            - name: longhorn
+              mountPath: /var/lib/longhorn/
+              mountPropagation: Bidirectional
+            - name: settings
+              mountPath: /var/lib/settings/
+            - name: dev
+              mountPath: /host/dev/
+            - name: proc
+              mountPath: /host/proc/
+
+      volumes:
+        - name: longhorn
+          hostPath:
+            path: /var/lib/longhorn/
+        - name: settings
+          configMap:
+            name: longhorn-settings
+        - name: dev
+          hostPath:
+            path: /dev/
+        - name: proc
+          hostPath:
+            path: /proc/
+
+...
