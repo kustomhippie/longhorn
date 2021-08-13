@@ -16,26 +16,26 @@ configurations:
 
 images:
   - name: wait-for
-    newName: docker.io/toolhippie/wait-for
+    newName: toolhippie/wait-for
     newTag: "latest"
 
   - name: longhorn-manager
-    newName: docker.io/longhornio/longhorn-manager
+    newName: longhornio/longhorn-manager
     newTag: "v1.1.1"
   - name: longhorn-frontend
-    newName: docker.io/longhornio/longhorn-ui
+    newName: longhornio/longhorn-ui
     newTag: "v1.1.1"
   - name: longhorn-engine
-    newName: docker.io/longhornio/longhorn-engine
+    newName: longhornio/longhorn-engine
     newTag: "v1.1.1"
   - name: longhorn-instancemanager
-    newName: docker.io/longhornio/longhorn-instance-manager
+    newName: longhornio/longhorn-instance-manager
     newTag: "v1_20201216"
   - name: longhorn-sharemanager
-    newName: docker.io/longhornio/longhorn-share-manager
+    newName: longhornio/longhorn-share-manager
     newTag: "v1_20201216"
   - name: longhorn-backingmanager
-    newName: docker.io/longhornio/backing-image-manager
+    newName: longhornio/backing-image-manager
     newTag: "v1_20201216"
 
 ...
