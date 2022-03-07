@@ -30,7 +30,7 @@ images:
     newTag: "v1.1.1"
   - name: longhorn-instancemanager
     newName: longhornio/longhorn-instance-manager
-    newTag: "v1_20201216"
+    newTag: "v1_20220303"
   - name: longhorn-sharemanager
     newName: longhornio/longhorn-share-manager
     newTag: "v1_20201216"
