@@ -36,6 +36,6 @@ images:
     newTag: "v1_20201216"
   - name: longhorn-backingmanager
     newName: longhornio/backing-image-manager
-    newTag: "v1_20201216"
+    newTag: "v1_20210422_patch1"
 
 ...
