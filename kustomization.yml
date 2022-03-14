@@ -27,7 +27,7 @@ images:
     newTag: "v1.1.1"
   - name: longhorn-engine
     newName: longhornio/longhorn-engine
-    newTag: "v1.1.1"
+    newTag: "v1.2.3"
   - name: longhorn-instancemanager
     newName: longhornio/longhorn-instance-manager
     newTag: "v1_20201216"
