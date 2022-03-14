@@ -33,7 +33,7 @@ images:
     newTag: "v1_20201216"
   - name: longhorn-sharemanager
     newName: longhornio/longhorn-share-manager
-    newTag: "v1_20201216"
+    newTag: "v1_20211020"
   - name: longhorn-backingmanager
     newName: longhornio/backing-image-manager
     newTag: "v1_20201216"
